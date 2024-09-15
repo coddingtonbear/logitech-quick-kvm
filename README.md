@@ -31,25 +31,25 @@ One of your computers will serve as the "server" for managing this, and all othe
 
 ## Server
 
-On the computer you've decided to use as your server, get the ID of the device you'd like to serve as your "leader", and the IDs of other devices you'd like to use as "followers".  The leader device -- I recommend using your keyboard -- will be the one we watch.  The followers will just be told which host to connect to if your leader device's host changes.
+On the computer you've decided to use as your server, get the ID of the device you'd like to serve as your "leader", and the IDs of other devices you'd like to use as "followers".  The leader device -- I recommend using your keyboard -- will be the one we watch.  The followers will just be told which host to connect to if your leader device's host changes.  Previous versions of this software used the path rather than the ID, but it was changed to prevent the values from changing.
 
 ```
 > logitech-flow-kvm list-devices
 
-┏━━━━━━━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━┓
-┃ ID             ┃ Product ┃ Name                       ┃ Serial   ┃
-┡━━━━━━━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━┩
-│ /dev/hidraw4:1 │ B369    │ MX Keys Mini               │ 08F5F681 │
-│ /dev/hidraw5:1 │ 4082    │ MX Master 3 Wireless Mouse │ 0F591C09 │
-└────────────────┴─────────┴────────────────────────────┴──────────┘
+┏━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━┓
+┃ ID       ┃ Product ┃ Name          ┃ Path           ┃
+┡━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━┩
+│ 51264495 │ B366    │ MX Mechanical │ /dev/hidraw4:1 │
+│ 3B776BDD │ B034    │ MX Master 3S  │ /dev/hidraw4:2 │
+└──────────┴─────────┴───────────────┴────────────────┘
 ```
 
-In this example, I'll be using my keyboard (`/dev/hidraw4:1`) as my "leader", and my mouse (`/dev/hidraw5:1`) as a follower.
+In this example, I'll be using my keyboard (`51264495`) as my "leader", and my mouse (`3B776BDD`) as a follower.
 
 You can run a command like this:
 
 ```
-> logitech-flow-kvm flow-server 1 /dev/hidraw4:1 /dev/hidraw5:1
+> logitech-flow-kvm flow-server 1 51264495 3B776BDD
 ```
 
 Note that the `1` in the above command immediately after `flow-server` indicates that the host number of your server is `1`.  This should match the host number you've paired your mouse and keyboard with your device as (i.e. when your mouse or keyboard is connected to this computer, the light for `1` is lit on the keyboard or mouse's device selector).
